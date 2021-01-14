@@ -1,0 +1,11 @@
+npm install bootstrap-material-design@4.1.1
+npm i @ant-design/icons
+npm i antd 
+npm install --save react-toastify
+
+completed firebase setup and steps for user registration and setting up password
+
+redux
+npm i redux react-redux redux-devtools-extension 
+
+redux devtools chrome extension
