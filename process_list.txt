@@ -1,0 +1,18 @@
+1. register using email
+2. sign up using gmail
+3. complete sign up page - set password
+4. populate user info on page refresh in redux state 41
+5. logout 
+6. menu hiding for logged in and non logged in user ( login & register option )
+7. protecting routes from non logged in user using UserRoute - not allowing other pages to be accessed by unauthorized user //43
+8. routing based on user role - admin and subscriber landing page after login //42
+9. change password functionality 46
+10. protecting admin routes from non logged in and subscriber user roles
+
+
+11. starting with category backend creation
+12 CRUD operations for category - server
+13 adding crud api endpoints in functions > category in - client
+
+
+14 creating admin dashboard nav 57

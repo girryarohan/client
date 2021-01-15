@@ -9,3 +9,16 @@ redux
 npm i redux react-redux redux-devtools-extension 
 
 redux devtools chrome extension
+
+//38
+axios to send token to backend
+
+
+functions folder has common function used across componenets and used for fetching data from server (
+
+//41  when we refresh browser what was happening - redux state was just having email and token received from firebase 
+so to get other userinfo back in redux state we are calling one api to backend 
+which is having findOne call having email as serach criteria - 
+i.e find email in our local database and return the other details of that email.
+so now after doing this even if we refresh current-user api will hit in db and return us user info 
+and we store it in redux state using dispatch LOGGED_IN_USER

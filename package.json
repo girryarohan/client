@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
     "antd": "^4.10.2",
+    "axios": "^0.21.1",
     "bootstrap-material-design": "^4.1.1",
     "firebase": "^8.2.2",
     "react": "^17.0.1",
