@@ -22,3 +22,5 @@ which is having findOne call having email as serach criteria -
 i.e find email in our local database and return the other details of that email.
 so now after doing this even if we refresh current-user api will hit in db and return us user info 
 and we store it in redux state using dispatch LOGGED_IN_USER
+
+

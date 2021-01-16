@@ -19,6 +19,11 @@ import Password from "./pages/user/Password";
 import Wishlist from "./pages/user/Wishlist";
 import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import CategoryCreate from "./pages/admin/category/CategoryCreate";
+import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
+import SubcategoryCreate from "./pages/admin/subcategory/SubcategoryCreate";
+import SubcategoryUpdate from "./pages/admin/subcategory/SubcategoryUpdate";
+import ProductCreate from "./pages/admin/product/ProductCreate";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +71,24 @@ function App() {
             path="/admin/dashboard"
             component={AdminDashboard}
           />
+          <AdminRoute exact path="/admin/category" component={CategoryCreate} />
+          <AdminRoute
+            exact
+            path="/admin/category/:slug"
+            component={CategoryUpdate}
+          />
+          <AdminRoute
+            exact
+            path="/admin/subcategory"
+            component={SubcategoryCreate}
+          />
+          <AdminRoute
+            exact
+            path="/admin/subcategory/:slug"
+            component={SubcategoryUpdate}
+          />
+          <AdminRoute exact path="/admin/product" component={ProductCreate} />
+
           <Route exact path="/" component={Home} />
         </Switch>
       </div>

@@ -10,9 +10,16 @@
 10. protecting admin routes from non logged in and subscriber user roles
 
 
-11. starting with category backend creation
+11 starting with category backend creation
 12 CRUD operations for category - server
 13 adding crud api endpoints in functions > category in - client
 
 
 14 creating admin dashboard nav 57
+15 category CRUD at frontend - 58 -60
+16 Refactored Form to used by multiple componenets- 62 - components/forms/
+17 search filter implemetation for categories to search any category 63
+18 Sub categories CRUD backend 65
+19 sub categories CRUD frontend 66 69
+
+20 product model backend 71

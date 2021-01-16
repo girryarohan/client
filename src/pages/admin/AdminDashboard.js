@@ -1,9 +1,15 @@
 import React from "react";
+import AdminNav from "../../components/nav/AdminRoute";
 
 function AdminDashboard() {
   return (
-    <div>
-      <p>admin dashboard</p>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
+        <div className="col">Admin Dashboard</div>
+      </div>
     </div>
   );
 }
