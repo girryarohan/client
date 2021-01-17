@@ -15,7 +15,7 @@ function LoadingToRedirect() {
   }, [count, history]);
   return (
     <div className="container p-5 text-center">
-      <p>The page you are trying to access is not available</p>
+      <p>Processing your request</p>
       <p>Redirecting you in {count} seconds</p>
     </div>
   );

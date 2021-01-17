@@ -24,3 +24,6 @@ so now after doing this even if we refresh current-user api will hit in db and r
 and we store it in redux state using dispatch LOGGED_IN_USER
 
 
+npm i react-image-file-resizer // 89
+
+
