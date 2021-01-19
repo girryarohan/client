@@ -13,6 +13,7 @@ function ProductUpdateForm({
   subOptions,
   arrayOfSubIds,
   setArrayOfSubIds,
+  selectedCategory,
 }) {
   // destructuring values
   const {
@@ -86,7 +87,7 @@ function ProductUpdateForm({
       <div className="form-group">
         <label>Color</label>
         <select
-          values={color}
+          value={color}
           name="color"
           className="form-control"
           onChange={handleChange}
@@ -119,7 +120,7 @@ function ProductUpdateForm({
           name="category"
           className="form-control"
           onChange={handleCategoryChange}
-          value={category._id}
+          value={selectedCategory ? selectedCategory : category._id}
         >
           {categories.length > 0 &&
             categories.map((c) => (

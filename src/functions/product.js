@@ -23,3 +23,19 @@ export const removeProduct = async (slug, authtoken) =>
 // get all product details for product update 102
 export const getProduct = async (slug) =>
   await axios.get(`${process.env.REACT_APP_API}/product/${slug}`);
+
+// update the product
+export const updateProduct = async (slug, product, authtoken) =>
+  await axios.put(`${process.env.REACT_APP_API}/product/${slug}`, product, {
+    headers: {
+      authtoken: authtoken,
+    },
+  });
+
+// new arrivals
+export const getProducts = async (sort, order, limit) =>
+  await axios.post(`${process.env.REACT_APP_API}/products`, {
+    sort: sort,
+    order: order,
+    limit: limit,
+  });
