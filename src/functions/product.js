@@ -7,3 +7,19 @@ export const createProduct = async (product, authtoken) =>
       authtoken: authtoken,
     },
   });
+
+// get all subcategories  associated with selected (parent) category 81
+export const getProductsByCount = async (count) =>
+  await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
+
+// 99 delete product
+export const removeProduct = async (slug, authtoken) =>
+  await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {
+    headers: {
+      authtoken: authtoken,
+    },
+  });
+
+// get all product details for product update 102
+export const getProduct = async (slug) =>
+  await axios.get(`${process.env.REACT_APP_API}/product/${slug}`);

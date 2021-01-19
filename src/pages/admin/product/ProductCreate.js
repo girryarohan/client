@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import AdminNav from "../../../components/nav/AdminRoute";
 import { createProduct } from "../../../functions/product";
-import { Modal } from "antd";
+import { Modal, Spin } from "antd";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
@@ -82,7 +82,11 @@ function ProductCreate() {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Product Create</h4>
+          {loading ? (
+            <Spin tip="Uploading..." className="pt-3" />
+          ) : (
+            <h4>Product Create</h4>
+          )}
           <hr />
           <div className="p-3">
             <FileUpload
