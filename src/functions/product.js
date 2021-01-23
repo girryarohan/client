@@ -33,9 +33,33 @@ export const updateProduct = async (slug, product, authtoken) =>
   });
 
 // new arrivals
-export const getProducts = async (sort, order, limit) =>
+export const getProducts = async (sort, order, page) =>
   await axios.post(`${process.env.REACT_APP_API}/products`, {
     sort: sort,
     order: order,
-    limit: limit,
+    page: page,
   });
+
+// pagination count
+export const getProductsCount = async () =>
+  await axios.get(`${process.env.REACT_APP_API}/products/total`);
+
+// update the rating
+export const productStar = async (productId, star, authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/product/star/${productId}`,
+    { star },
+    {
+      headers: {
+        authtoken: authtoken,
+      },
+    }
+  );
+
+// get related products
+export const getRelated = async (productId) =>
+  await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);
+
+// get all products by filter
+export const fetchProductsByFilter = async (arg) =>
+  await axios.post(`${process.env.REACT_APP_API}/search/filters`, arg);
