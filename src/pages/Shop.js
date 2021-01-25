@@ -4,10 +4,20 @@ import {
   fetchProductsByFilter,
 } from "../functions/product";
 import { getCategories } from "../functions/category";
+import { getSubcategories } from "../functions/subcategory";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
-import { Menu, Slider, Checkbox } from "antd";
-import { DownSquareOutlined, MonitorOutlined } from "@ant-design/icons";
+import { Menu, Slider, Checkbox, Radio } from "antd";
+import {
+  AntDesignOutlined,
+  BgColorsOutlined,
+  DownSquareOutlined,
+  MonitorOutlined,
+  StarOutlined,
+  TagsOutlined,
+  TransactionOutlined,
+} from "@ant-design/icons";
+import Star from "../components/forms/Star";
 
 const { SubMenu, ItemGroup } = Menu;
 
@@ -18,6 +28,26 @@ function Shop() {
   const [ok, setOk] = useState(false);
   const [categories, setCategories] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [star, setStar] = useState("");
+  const [subs, setSubs] = useState([]);
+  const [sub, setSub] = useState("");
+  const [brands, setBrands] = useState([
+    "Apple",
+    "Samsung",
+    "Microsoft",
+    "Lenovo",
+    "ASUS",
+  ]);
+  const [brand, setBrand] = useState("");
+  const [colors, setColors] = useState([
+    "Black",
+    "White",
+    "Blue",
+    "Gold",
+    "Silver",
+  ]);
+  const [color, setColor] = useState("");
+  const [shipping, setShipping] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -28,6 +58,9 @@ function Shop() {
 
     // fetch categories
     getCategories().then((res) => setCategories(res.data));
+
+    // fetch subcategories
+    getSubcategories().then((res) => setSubs(res.data));
   }, []);
 
   const fetchProducts = (arg) => {
@@ -48,7 +81,10 @@ function Shop() {
     // console.log("load products on user search input", text);
     const delayed = setTimeout(() => {
       fetchProducts({ query: text });
-    }, 800);
+      if (!text) {
+        loadAllProducts();
+      }
+    }, 300);
     return () => clearTimeout(delayed);
   }, [text]);
 
@@ -63,7 +99,14 @@ function Shop() {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    // reset other filters
     setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setColor("");
+    setShipping("");
+    // set price
     setPrice(value);
     setTimeout(() => {
       setOk(!ok);
@@ -93,7 +136,13 @@ function Shop() {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    // reset other filters
     setPrice([0, 0]);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setColor("");
+    setShipping("");
     // console.log(e.target.value);
     let inTheState = [...categoryIds];
     let justChecked = e.target.value;
@@ -108,6 +157,173 @@ function Shop() {
     setCategoryIds(inTheState);
     // console.log(inTheState);
     fetchProducts({ category: inTheState });
+    if (inTheState.length < 1) {
+      console.log("TEST SUCC");
+      loadAllProducts();
+    }
+  };
+
+  // 5.show products by star rating
+  const handleStarClick = (num) => {
+    //  console.log(num);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    // reset other filters
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setSub("");
+    setBrand("");
+    setColor("");
+    setShipping("");
+    // set star
+    setStar(num);
+    fetchProducts({ stars: num });
+  };
+
+  const showStars = () => (
+    <div className="pr-4 pl-4 pb-2">
+      <Star starClick={handleStarClick} numberOfStars={5} />
+      <Star starClick={handleStarClick} numberOfStars={4} />
+      <Star starClick={handleStarClick} numberOfStars={3} />
+      <Star starClick={handleStarClick} numberOfStars={2} />
+      <Star starClick={handleStarClick} numberOfStars={1} />
+    </div>
+  );
+
+  // 6. show products by sub category
+
+  const showSubs = () =>
+    subs.map((s) => (
+      <div
+        key={s._id}
+        onClick={() => handleSub(s)}
+        className="p-1 m-1 badge badge-secondary"
+        style={{ cursor: "pointer" }}
+      >
+        {s.name}
+      </div>
+    ));
+  const handleSub = (sub) => {
+    // console.log(sub);
+    setSub(sub);
+
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    // reset other filters
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setBrand("");
+    setColor("");
+    setShipping("");
+    fetchProducts({ sub: sub });
+  };
+
+  //  7. show products based on brand name
+  const showBrands = () =>
+    brands.map((b) => (
+      <>
+        <Radio
+          value={b}
+          name={b}
+          checked={b === brand}
+          onChange={handleBrand}
+          className="pb-2 pl-4 pr-4"
+        >
+          {b}
+        </Radio>
+        <br />
+      </>
+    ));
+  const handleBrand = (e) => {
+    //
+    setBrand(e.target.value);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    // reset other filters
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setColor("");
+    setShipping("");
+    fetchProducts({ brand: e.target.value });
+  };
+
+  // 8. show product based on color
+  const showColors = () =>
+    colors.map((c) => (
+      <>
+        <Radio
+          value={c}
+          name={c}
+          checked={c === color}
+          onChange={handleColor}
+          className="pb-2 pl-4 pr-4"
+        >
+          {c}
+        </Radio>
+        <br />
+      </>
+    ));
+  const handleColor = (e) => {
+    //
+    setColor(e.target.value);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    // reset other filters
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setShipping("");
+    fetchProducts({ color: e.target.value });
+  };
+
+  // 9.  show product based on shipping
+  const showShipping = () => (
+    <>
+      <Checkbox
+        className="pb-2 pl-4 pr-4"
+        onChange={handleShippingChange}
+        value="Yes"
+        checked={shipping === "Yes"}
+      >
+        Yes
+      </Checkbox>
+      <Checkbox
+        className="pb-2 pl-4 pr-4"
+        onChange={handleShippingChange}
+        value="No"
+        checked={shipping === "No"}
+      >
+        No
+      </Checkbox>
+    </>
+  );
+  const handleShippingChange = (e) => {
+    setShipping(e.target.value);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    // reset other filters
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setColor("");
+    fetchProducts({ shipping: e.target.value });
   };
   return (
     <div className="container-fluid">
@@ -115,7 +331,10 @@ function Shop() {
         <div className="col-md-3 pt-2">
           <h4>Search/ Filter</h4>
           <hr />
-          <Menu mode="inline" defaultOpenKeys={["1", "2"]}>
+          <Menu
+            mode="inline"
+            defaultOpenKeys={["1", "2", "3", "4", "5", "6", "7"]}
+          >
             {/* price */}
             <SubMenu
               key="1"
@@ -145,7 +364,66 @@ function Shop() {
                 </span>
               }
             >
-              <div style={{ marginTop: "-10px" }}>{showCategories()}</div>
+              <div style={{ marginTop: "-5px" }}>{showCategories()}</div>
+            </SubMenu>
+
+            {/* stars */}
+            <SubMenu
+              key="3"
+              title={
+                <span className="h6">
+                  <StarOutlined /> Rating
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-5px" }}>{showStars()}</div>
+            </SubMenu>
+            {/* subcategories */}
+            <SubMenu
+              key="4"
+              title={
+                <span className="h6">
+                  <TagsOutlined /> Sub Categories
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-5px" }} className="pl-4 pr-4">
+                {showSubs()}
+              </div>
+            </SubMenu>
+            {/* brands */}
+            <SubMenu
+              key="5"
+              title={
+                <span className="h6">
+                  <AntDesignOutlined /> Brands
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-5px" }}>{showBrands()}</div>
+            </SubMenu>
+
+            {/* color */}
+            <SubMenu
+              key="6"
+              title={
+                <span className="h6">
+                  <BgColorsOutlined /> Color
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-5px" }}>{showColors()}</div>
+            </SubMenu>
+            {/* shipping */}
+            <SubMenu
+              key="7"
+              title={
+                <span className="h6">
+                  <TransactionOutlined /> Shipping
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-5px" }}>{showShipping()}</div>
             </SubMenu>
           </Menu>
         </div>

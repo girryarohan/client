@@ -27,5 +27,5 @@ and we store it in redux state using dispatch LOGGED_IN_USER
 npm i react-image-file-resizer // 89
 
  npm i typewriter-effect //114
-
-
+npm i lodash // 163
+npm i react-modal-image //170
