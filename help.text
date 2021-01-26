@@ -29,3 +29,6 @@ npm i react-image-file-resizer // 89
  npm i typewriter-effect //114
 npm i lodash // 163
 npm i react-modal-image //170
+
+npm i react-quill  //185
+npm i react-datepicker //189
