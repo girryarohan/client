@@ -32,3 +32,14 @@ npm i react-modal-image //170
 
 npm i react-quill  //185
 npm i react-datepicker //189
+
+
+//197 Stripe payment 
+stripe secret in backend - create endpoint 
+generate client secret and send it to frontend 
+create a widget to take credit card details from user 
+
+npm i @stripe/stripe-js @stripe/react-stripe-js
+
+npm i @react-pdf/renderer
+npm i @david.kucsai/react-pdf-table

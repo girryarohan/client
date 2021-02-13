@@ -25,6 +25,22 @@ function Cart({ history }) {
       .catch((err) => console.log("CART SAVE ERR", err));
   };
 
+  //saveCashOrderToDb
+  const saveCashOrderToDb = () => {
+    //
+    dispatch({
+      type: "COD",
+      payload: true,
+    });
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("CART POST RES", res);
+        if (res.data.ok) {
+          history.push("/checkout");
+        }
+      })
+      .catch((err) => console.log("CART SAVE ERR", err));
+  };
   const showCartItems = () => (
     <table className="table table-bordered">
       <thead className="thead-light">
@@ -44,6 +60,7 @@ function Cart({ history }) {
       ))}
     </table>
   );
+
   return (
     <div className="container-fluid pt-2">
       <div className="row">
@@ -77,13 +94,23 @@ function Cart({ history }) {
           Total: <b>₹{getTotal()}</b>
           <hr />
           {user ? (
-            <button
-              onClick={saveOrderToDb}
-              className="btn btn-sm btn-info btn-raised mt-2"
-              disabled={!cart.length}
-            >
-              Proceed to Checkout
-            </button>
+            <>
+              <button
+                onClick={saveOrderToDb}
+                className="btn btn-sm btn-info btn-raised mt-2"
+                disabled={!cart.length}
+              >
+                Proceed to Checkout
+              </button>
+              <br />
+              <button
+                onClick={saveCashOrderToDb}
+                className="btn btn-sm btn-dark btn-raised mt-2"
+                disabled={!cart.length}
+              >
+                Pay Cash on Delivery
+              </button>
+            </>
           ) : (
             <button className="btn btn-sm btn-info btn-raised mt-2">
               <Link

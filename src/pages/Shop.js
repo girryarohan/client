@@ -228,6 +228,7 @@ function Shop() {
     brands.map((b) => (
       <>
         <Radio
+          key={b}
           value={b}
           name={b}
           checked={b === brand}
@@ -261,6 +262,7 @@ function Shop() {
     colors.map((c) => (
       <>
         <Radio
+          key={c}
           value={c}
           name={c}
           checked={c === color}

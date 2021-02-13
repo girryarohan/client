@@ -39,3 +39,83 @@ export const saveUserAddress = async (authtoken, address) =>
       },
     }
   );
+
+// apply coupon
+export const applyCoupon = async (authtoken, coupon) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/cart/coupon`,
+    { coupon },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+// create order
+export const createOrder = async (stripeResponse, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/order`,
+    { stripeResponse },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+// get all orders of user
+export const getUserOrders = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/user/orders`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+// get wishlist of user
+export const getWishlist = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/user/wishlist`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+// update/ reomve wishlist of user
+export const removeWishlist = async (productId, authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/user/wishlist/${productId}`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+// addToWishlist
+export const addToWishlist = async (productId, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/wishlist`,
+    { productId },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+// create COD order
+export const createCashOrderForUser = async (
+  authtoken,
+  COD,
+  couponTrueOrFalse
+) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/cash-order`,
+    { couponApplied: couponTrueOrFalse, COD },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );

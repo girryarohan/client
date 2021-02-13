@@ -5,3 +5,16 @@
 .pointer{
     cursor:pointer;
 }
+
+.Processing{
+    background-color: yellow !important;
+}
+.Dispatched{
+    background-color: rgb(167, 222, 253) !important;
+}
+.Cancelled{
+    background-color: grey !important;
+}
+.Completed{
+    background-color: greenyellow !important;
+}

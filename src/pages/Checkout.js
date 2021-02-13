@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserCart, emptyUserCart, saveUserAddress } from "../functions/user";
+import {
+  getUserCart,
+  emptyUserCart,
+  saveUserAddress,
+  applyCoupon,
+  createCashOrderForUser,
+} from "../functions/user";
 import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Checkout() {
+function Checkout({ history }) {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, COD } = useSelector((state) => ({ ...state }));
+  const couponTrueOrFalse = useSelector((state) => state.coupon);
   const [address, setAddress] = useState("");
   const [addressSaved, setAddressSaved] = useState(false);
   const [coupon, setCoupon] = useState("");
-
+  // discount price
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
+  const [discountError, setDiscountError] = useState("");
   useEffect(() => {
     getUserCart(user.token).then((res) => {
       console.log("user cart res", JSON.stringify(res.data, null, 4));
       setProducts(res.data.products);
       setTotal(res.data.cartTotal);
     });
-  }, []);
+  }, [user.token]);
   const emptyCart = () => {
     // remove from local storage
     if (typeof window !== "undefined") {
@@ -36,6 +45,8 @@ function Checkout() {
     emptyUserCart(user.token).then((res) => {
       setProducts([]);
       setTotal(0);
+      setTotalAfterDiscount(0);
+      setCoupon("");
       toast.success("Cart is empty. continue shopping");
     });
   };
@@ -51,6 +62,25 @@ function Checkout() {
   };
   const applyDiscountCoupon = () => {
     console.log(coupon);
+    applyCoupon(user.token, coupon).then((res) => {
+      console.log("RES ON COUPON APPLIED", res.data);
+      if (res.data) {
+        setTotalAfterDiscount(res.data);
+        // push the totalAfterDiscount to redux- update redux coupon applied true/false
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: true,
+        });
+      }
+      if (res.data.err) {
+        setDiscountError(res.data.err);
+        // update redux coupon applied true/false
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
+      }
+    });
   };
   const showAddress = () => (
     //
@@ -77,7 +107,10 @@ function Checkout() {
   const showApplyCoupon = () => (
     <>
       <input
-        onChange={(e) => setCoupon(e.target.value)}
+        onChange={(e) => {
+          setCoupon(e.target.value);
+          setDiscountError("");
+        }}
         value={coupon}
         type="text"
         className="form-control"
@@ -87,6 +120,45 @@ function Checkout() {
       </button>
     </>
   );
+  const createCashOrder = () => {
+    //
+    createCashOrderForUser(user.token, COD, couponTrueOrFalse).then((res) => {
+      console.log("USER CASH ORDER CREATED", res);
+      // empty cart from redux, local Storage , reset coupon , reset COD, redirect
+      if (res.data.ok) {
+        // empty local storage
+        if (typeof window !== "undefined") localStorage.removeItem("cart");
+        // empty redux cart
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: [],
+        });
+        // empty redux coupon
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
+        // empty redux COD
+        dispatch({
+          type: "COD",
+          payload: false,
+        });
+
+        // empty cart from DB
+        emptyUserCart(user.token).then((res) => {
+          setProducts([]);
+          setTotal(0);
+          setTotalAfterDiscount(0);
+          setCoupon("");
+          toast.success("Cart is empty. continue shopping");
+        });
+        // redirect
+        setTimeout(() => {
+          history.push("/user/history");
+        }, 1000);
+      }
+    });
+  };
   return (
     <div className="row p-3">
       <div className="col-md-6">
@@ -98,6 +170,8 @@ function Checkout() {
         <h4>Got Coupon?</h4>
         <br />
         {showApplyCoupon()}
+        <br />
+        {discountError && <p className="bg-danger p-2">{discountError}</p>}
       </div>
       <div className="col-md-6">
         <h4>Order Summary</h4>
@@ -108,15 +182,31 @@ function Checkout() {
         {showProductSummary()}
         <hr />
         <p>Cart Total: ₹ {total}</p>
+        {totalAfterDiscount > 0 && (
+          <p className="bg-success p-2">
+            Discount Applied: Total Payable: ₹ {totalAfterDiscount}
+          </p>
+        )}
 
         <div className="row">
           <div className="col-md-6">
-            <button
-              className="btn btn-info"
-              disabled={!addressSaved || !products.length}
-            >
-              Place Order
-            </button>
+            {COD ? (
+              <button
+                className="btn btn-info"
+                disabled={!addressSaved || !products.length}
+                onClick={createCashOrder}
+              >
+                Place Order
+              </button>
+            ) : (
+              <button
+                className="btn btn-info"
+                disabled={!addressSaved || !products.length}
+                onClick={() => history.push("/payment")}
+              >
+                Place Order
+              </button>
+            )}
           </div>
           <div className="col-md-6">
             <button
