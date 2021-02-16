@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserNav from "../../components/nav/UserNav";
 import { getWishlist, removeWishlist } from "../../functions/user";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 function Wishlist() {
@@ -10,7 +10,7 @@ function Wishlist() {
 
   useEffect(() => {
     loadWishlist();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const loadWishlist = () =>
     getWishlist(user.token).then((res) => {
       console.log("WISHLIST HERE-> ", res.data.wishlist);
@@ -43,6 +43,18 @@ function Wishlist() {
             ))}
         </div>
       </div>
+      {(wishlist.length < 1 || wishlist.length < 4) && (
+        <>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </>
+      )}
     </div>
   );
 }

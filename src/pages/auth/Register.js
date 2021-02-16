@@ -53,6 +53,8 @@ function Register({ history }) {
           <h4>Register</h4>
 
           {registerForm()}
+          <br />
+          <br />
         </div>
       </div>
     </div>

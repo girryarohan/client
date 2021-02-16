@@ -39,7 +39,7 @@ function Header() {
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       <Item key="home" icon={<AppstoreOutlined />}>
-        <Link to="/">Home</Link>
+        <Link to="/">eCom.in</Link>
       </Item>
       <Item key="shop" icon={<ShoppingOutlined />}>
         <Link to="/shop">Shop</Link>

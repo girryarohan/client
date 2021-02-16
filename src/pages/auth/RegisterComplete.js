@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createOrUpdateUser } from "../../functions/auth";
 
 function RegisterComplete({ history }) {
@@ -9,7 +9,7 @@ function RegisterComplete({ history }) {
   const [password, setPassword] = useState("");
 
   // below code for not letting logged in user to access forgot password page
-  const { user } = useSelector((state) => ({ ...state }));
+
   let dispatch = useDispatch();
 
   useEffect(() => {

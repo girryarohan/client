@@ -21,7 +21,7 @@ function SingleProduct({ product, onStarClick, star }) {
 
   const [tooltip, setTooltip] = useState("Click to add");
   //redux
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
   //router
   let history = useHistory();
@@ -61,11 +61,18 @@ function SingleProduct({ product, onStarClick, star }) {
 
   const handleAddToWishlist = (e) => {
     e.preventDefault();
-    addToWishlist(product._id, user.token).then((res) => {
-      console.log("ADDED TO WISHLIST", res.data);
-      toast.success("Added to Wishlist");
-      history.push("/user/wishlist");
-    });
+    if (user && user.token) {
+      addToWishlist(product._id, user.token).then((res) => {
+        console.log("ADDED TO WISHLIST", res.data);
+        toast.success("Added to Wishlist");
+        history.push("/user/wishlist");
+      });
+    } else {
+      history.push({
+        pathname: "/login",
+        state: { from: `/user/wishlist` },
+      });
+    }
   };
   return (
     <>
@@ -82,7 +89,7 @@ function SingleProduct({ product, onStarClick, star }) {
             }
           ></Card>
         )}
-        <Tabs type="card">
+        <Tabs type="card" className="pb-3">
           <TabPane tab="Description" key="1">
             {description && description}
           </TabPane>
@@ -92,7 +99,7 @@ function SingleProduct({ product, onStarClick, star }) {
         </Tabs>
       </div>
       <div className="col-md-5">
-        <h1 className="bg-info p-3">{title}</h1>
+        <h1 className="bg-light p-3">{title}</h1>
         {product && product.ratings && product.ratings.length > 0 ? (
           showAverage(product)
         ) : (
@@ -101,11 +108,11 @@ function SingleProduct({ product, onStarClick, star }) {
 
         <Card
           actions={[
-            <Tooltip title={tooltip}>
-              <a onClick={handleAddToCart}>
+            <Tooltip placement="top" title={tooltip}>
+              <a onClick={handleAddToCart} disabled={product.quantity < 1}>
                 <ShoppingCartOutlined className="text-danger" />
                 <br />
-                Add to Cart
+                {product.quantity < 1 ? "Out of Stock" : "Add To Cart"}
               </a>
             </Tooltip>,
             <a onClick={handleAddToWishlist}>

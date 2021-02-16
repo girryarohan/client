@@ -92,7 +92,7 @@ function Shop() {
   useEffect(() => {
     console.log("ok to request");
     fetchProducts({ price });
-  }, [ok]);
+  }, [ok]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSlider = (value) => {
     dispatch({
@@ -327,12 +327,25 @@ function Shop() {
     setColor("");
     fetchProducts({ shipping: e.target.value });
   };
+  const resetAllFilters = () => {
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setColor("");
+    setShipping("");
+    setBrand("");
+    loadAllProducts();
+  };
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-3 pt-2">
           <h4>Search/ Filter</h4>
           <hr />
+          <a className="float-right pr-2" onClick={resetAllFilters}>
+            Reset All
+          </a>
           <Menu
             mode="inline"
             defaultOpenKeys={["1", "2", "3", "4", "5", "6", "7"]}

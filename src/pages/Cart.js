@@ -64,10 +64,8 @@ function Cart({ history }) {
   return (
     <div className="container-fluid pt-2">
       <div className="row">
-        <h4>Cart / {cart.length} Product</h4>
-      </div>
-      <div className="row">
         <div className="col-md-8">
+          <h4>Cart / {cart.length} Product</h4>
           {!cart.length ? (
             <p>
               No products in cart.<Link to="/shop"> Continue Shopping</Link>
@@ -126,6 +124,12 @@ function Cart({ history }) {
           )}
         </div>
       </div>
+      {!cart.length && (
+        <>
+          <br />
+          <br />
+        </>
+      )}
     </div>
   );
 }

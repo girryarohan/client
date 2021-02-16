@@ -35,6 +35,10 @@ import SideDrawer from "./components/drawer/SideDrawer";
 import Checkout from "./pages/Checkout";
 import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
 import Payment from "./pages/Payment";
+import Footer from "./components/footer/Footer";
+import NotFoundPage from "./pages/NotFoundPage";
+import { BackTop } from "antd";
+import AboutMe from "./pages/AboutMe";
 
 function App() {
   const dispatch = useDispatch();
@@ -118,7 +122,11 @@ function App() {
           <UserRoute exact path="/payment" component={Payment} />
 
           <Route exact path="/" component={Home} />
+          <Route exact path="/aboutme" component={AboutMe} />
+          <Route path="*" component={NotFoundPage} />
         </Switch>
+        <Footer />
+        <BackTop />
       </div>
     </Router>
   );

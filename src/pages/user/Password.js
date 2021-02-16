@@ -68,6 +68,12 @@ function Password() {
             <h4>Password Update</h4>
           )}
           {passwordUpdateForm()}
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       </div>
     </div>

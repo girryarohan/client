@@ -17,6 +17,12 @@ function LoadingToRedirect() {
     <div className="container p-5 text-center">
       <p>Processing your request</p>
       <p>Redirecting you in {count} seconds</p>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

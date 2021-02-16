@@ -58,6 +58,8 @@ function ForgotPassword({ history }) {
           Submit
         </button>
       </form>
+      <br />
+      <br />
     </div>
   );
 }

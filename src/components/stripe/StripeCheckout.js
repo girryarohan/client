@@ -32,7 +32,7 @@ function StripeCheckout({ history }) {
       setTotalAfterDiscount(res.data.totalAfterDiscount);
       setPayable(res.data.payable);
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (e) => {
     //

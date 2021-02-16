@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import UserNav from "../../components/nav/UserNav";
 import { getUserOrders } from "../../functions/user";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import { toast } from "react-toastify";
+import {} from "react-toastify";
 import ShowPaymentInfo from "../../components/cards/ShowPaymentInfo";
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFDownloadLink,
-  PDFViewer,
-} from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import Invoice from "../../components/order/Invoice";
 
 function History() {
@@ -22,7 +14,7 @@ function History() {
 
   useEffect(() => {
     loadUserOrders();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadUserOrders = () =>
     getUserOrders(user.token).then((res) => {

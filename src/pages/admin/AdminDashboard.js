@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AdminNav from "../../components/nav/AdminRoute";
 import { getOrders, changeStatus } from "../../functions/admin";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Orders from "../../components/order/Orders";
 
@@ -11,7 +11,7 @@ function AdminDashboard() {
 
   useEffect(() => {
     loadOrders();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const loadOrders = () =>
     getOrders(user.token).then((res) => {
       console.log(JSON.stringify(res.data, null, 4));

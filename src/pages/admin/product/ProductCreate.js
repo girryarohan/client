@@ -34,7 +34,7 @@ function ProductCreate() {
 
   useEffect(() => {
     loadCategories();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // independant function to load all categories from db
   const loadCategories = () =>
     getCategories().then((c) => setValues({ ...values, categories: c.data }));

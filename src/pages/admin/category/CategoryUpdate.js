@@ -13,7 +13,7 @@ function CategoryUpdate({ history, match }) {
 
   useEffect(() => {
     loadCategory();
-  }, [match]);
+  }, [match]); // eslint-disable-line react-hooks/exhaustive-deps
   // independant function to load all categories from db
   const loadCategory = () =>
     getCategory(match.params.slug).then((c) => setName(c.data.name));

@@ -20,7 +20,7 @@ function SubcategoryUpdate({ history, match }) {
   useEffect(() => {
     loadCategories();
     loadSubcategory();
-  }, [match]);
+  }, [match]); // eslint-disable-line react-hooks/exhaustive-deps
   // independant function to load all categories from db
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));

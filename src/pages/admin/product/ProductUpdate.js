@@ -42,7 +42,7 @@ function ProductUpdate({ match, history }) {
   useEffect(() => {
     loadProduct();
     loadCategories();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const loadProduct = () => {
     getProduct(slug).then((p) => {
       //   console.log("UPDATE PRODUCT SINGLE", p);
