@@ -23,7 +23,7 @@ const initialState = {
   color: "Black",
   brand: "Microsoft",
 };
-function ProductCreate() {
+function ProductCreate({ history }) {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [showSub, setShowSub] = useState(false);
@@ -47,7 +47,7 @@ function ProductCreate() {
         Modal.info({
           title: `"${res.data.title}" is created`,
           onOk() {
-            window.location.reload();
+            history.push("/admin/product");
           },
         });
       })
