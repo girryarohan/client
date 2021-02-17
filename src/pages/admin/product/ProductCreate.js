@@ -47,7 +47,7 @@ function ProductCreate({ history }) {
         Modal.info({
           title: `"${res.data.title}" is created`,
           onOk() {
-            history.push("/admin/product");
+            history.push("/admin/products");
           },
         });
       })
