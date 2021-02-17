@@ -1,44 +1,56 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import Header from "./components/nav/Header";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import RegisterComplete from "./pages/auth/RegisterComplete";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import Home from "./pages/Home";
-import History from "./pages/user/History";
-import UserRoute from "./components/routes/UserRoute";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
-import Password from "./pages/user/Password";
-import Wishlist from "./pages/user/Wishlist";
-import AdminRoute from "./components/routes/AdminRoute";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import CategoryCreate from "./pages/admin/category/CategoryCreate";
-import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
-import SubcategoryCreate from "./pages/admin/subcategory/SubcategoryCreate";
-import SubcategoryUpdate from "./pages/admin/subcategory/SubcategoryUpdate";
-import ProductCreate from "./pages/admin/product/ProductCreate";
-import AllProducts from "./pages/admin/product/AllProducts";
-import ProductUpdate from "./pages/admin/product/ProductUpdate";
-import Product from "./pages/Product";
-import CategoryHome from "./pages/category/CategoryHome";
-import SubHome from "./pages/sub/SubHome";
-import Shop from "./pages/Shop";
-import Cart from "./pages/Cart";
-import SideDrawer from "./components/drawer/SideDrawer";
-import Checkout from "./pages/Checkout";
-import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
-import Payment from "./pages/Payment";
-import Footer from "./components/footer/Footer";
-import NotFoundPage from "./pages/NotFoundPage";
 import { BackTop } from "antd";
-import AboutMe from "./pages/AboutMe";
+import { LoadingOutlined } from "@ant-design/icons";
+
+const Header = lazy(() => import("./components/nav/Header"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const Register = lazy(() => import("./pages/auth/Register"));
+const RegisterComplete = lazy(() => import("./pages/auth/RegisterComplete"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const Home = lazy(() => import("./pages/Home"));
+const History = lazy(() => import("./pages/user/History"));
+const UserRoute = lazy(() => import("./components/routes/UserRoute"));
+const Password = lazy(() => import("./pages/user/Password"));
+const Wishlist = lazy(() => import("./pages/user/Wishlist"));
+const AdminRoute = lazy(() => import("./components/routes/AdminRoute"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const CategoryCreate = lazy(() =>
+  import("./pages/admin/category/CategoryCreate")
+);
+const CategoryUpdate = lazy(() =>
+  import("./pages/admin/category/CategoryUpdate")
+);
+const SubcategoryCreate = lazy(() =>
+  import("./pages/admin/subcategory/SubcategoryCreate")
+);
+const SubcategoryUpdate = lazy(() =>
+  import("./pages/admin/subcategory/SubcategoryUpdate")
+);
+const ProductCreate = lazy(() => import("./pages/admin/product/ProductCreate"));
+const AllProducts = lazy(() => import("./pages/admin/product/AllProducts"));
+const ProductUpdate = lazy(() => import("./pages/admin/product/ProductUpdate"));
+const Product = lazy(() => import("./pages/Product"));
+const CategoryHome = lazy(() => import("./pages/category/CategoryHome"));
+const SubHome = lazy(() => import("./pages/sub/SubHome"));
+const Shop = lazy(() => import("./pages/Shop"));
+const Cart = lazy(() => import("./pages/Cart"));
+const SideDrawer = lazy(() => import("./components/drawer/SideDrawer"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const CreateCouponPage = lazy(() =>
+  import("./pages/admin/coupon/CreateCouponPage")
+);
+const Payment = lazy(() => import("./pages/Payment"));
+const Footer = lazy(() => import("./components/footer/Footer"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+const AboutMe = lazy(() => import("./pages/AboutMe"));
 
 function App() {
   const dispatch = useDispatch();
@@ -70,64 +82,86 @@ function App() {
 
   return (
     <Router>
-      <div className="app">
-        <Header />
-        <SideDrawer />
-        <ToastContainer />
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/register/complete" component={RegisterComplete} />
-          <Route exact path="/forgot/password" component={ForgotPassword} />
-          <UserRoute exact path="/user/history" component={History} />
-          <UserRoute exact path="/user/password" component={Password} />
-          <UserRoute exact path="/user/wishlist" component={Wishlist} />
-          <AdminRoute
-            exact
-            path="/admin/dashboard"
-            component={AdminDashboard}
-          />
-          <AdminRoute exact path="/admin/category" component={CategoryCreate} />
-          <AdminRoute
-            exact
-            path="/admin/category/:slug"
-            component={CategoryUpdate}
-          />
-          <AdminRoute
-            exact
-            path="/admin/subcategory"
-            component={SubcategoryCreate}
-          />
-          <AdminRoute
-            exact
-            path="/admin/subcategory/:slug"
-            component={SubcategoryUpdate}
-          />
-          <AdminRoute exact path="/admin/product" component={ProductCreate} />
-          <AdminRoute exact path="/admin/products" component={AllProducts} />
-          <AdminRoute
-            exact
-            path="/admin/product/:slug"
-            component={ProductUpdate}
-          />
+      <Suspense
+        fallback={
+          <div className="col text-center p-5">
+            __ React Redux eC
+            <LoadingOutlined />
+            m.in
+          </div>
+        }
+      >
+        <div className="app">
+          <Header />
+          <SideDrawer />
+          <ToastContainer />
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route
+              exact
+              path="/register/complete"
+              component={RegisterComplete}
+            />
+            <Route exact path="/forgot/password" component={ForgotPassword} />
+            <UserRoute exact path="/user/history" component={History} />
+            <UserRoute exact path="/user/password" component={Password} />
+            <UserRoute exact path="/user/wishlist" component={Wishlist} />
+            <AdminRoute
+              exact
+              path="/admin/dashboard"
+              component={AdminDashboard}
+            />
+            <AdminRoute
+              exact
+              path="/admin/category"
+              component={CategoryCreate}
+            />
+            <AdminRoute
+              exact
+              path="/admin/category/:slug"
+              component={CategoryUpdate}
+            />
+            <AdminRoute
+              exact
+              path="/admin/subcategory"
+              component={SubcategoryCreate}
+            />
+            <AdminRoute
+              exact
+              path="/admin/subcategory/:slug"
+              component={SubcategoryUpdate}
+            />
+            <AdminRoute exact path="/admin/product" component={ProductCreate} />
+            <AdminRoute exact path="/admin/products" component={AllProducts} />
+            <AdminRoute
+              exact
+              path="/admin/product/:slug"
+              component={ProductUpdate}
+            />
 
-          <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
-          <Route exact path="/product/:slug" component={Product} />
-          <Route exact path="/category/:slug" component={CategoryHome} />
-          <Route exact path="/subcategory/:slug" component={SubHome} />
-          <Route exact path="/shop" component={Shop} />
-          <Route exact path="/cart" component={Cart} />
+            <AdminRoute
+              exact
+              path="/admin/coupon"
+              component={CreateCouponPage}
+            />
+            <Route exact path="/product/:slug" component={Product} />
+            <Route exact path="/category/:slug" component={CategoryHome} />
+            <Route exact path="/subcategory/:slug" component={SubHome} />
+            <Route exact path="/shop" component={Shop} />
+            <Route exact path="/cart" component={Cart} />
 
-          <UserRoute exact path="/checkout" component={Checkout} />
-          <UserRoute exact path="/payment" component={Payment} />
+            <UserRoute exact path="/checkout" component={Checkout} />
+            <UserRoute exact path="/payment" component={Payment} />
 
-          <Route exact path="/" component={Home} />
-          <Route exact path="/aboutme" component={AboutMe} />
-          <Route path="*" component={NotFoundPage} />
-        </Switch>
-        <Footer />
-        <BackTop />
-      </div>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/aboutme" component={AboutMe} />
+            <Route path="*" component={NotFoundPage} />
+          </Switch>
+          <Footer />
+          <BackTop />
+        </div>
+      </Suspense>
     </Router>
   );
 }

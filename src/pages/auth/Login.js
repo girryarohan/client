@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
 
 function Login({ history }) {
-  const [email, setEmail] = useState("rohanarote7@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("girryarohan@gmail.com");
+  const [password, setPassword] = useState("ppp009");
   const [loading, setLoading] = useState(false);
 
   // below code for not letting logged in user to access forgot password page
