@@ -15,7 +15,7 @@ function RegisterComplete({ history }) {
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
     console.log(window.location.href);
-  }, []);
+  }, [history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // do not reload browser
@@ -72,7 +72,7 @@ function RegisterComplete({ history }) {
   const completeRegistrationForm = () => (
     <form onSubmit={handleSubmit} className="form">
       <div className="form-group">
-        <input type="email" className="form-control" value={email} autoFocus />
+        <input type="email" className="form-control" value={email} disabled />
         {/* disabled not added to email input to prevent deadlock because of browser local storage cache clear*/}
         {/* eg. if user enters email and clears browser cache and come back via email link then email will be undefined */}
         <input
