@@ -4,7 +4,7 @@ import ShowPaymentInfo from "../cards/ShowPaymentInfo";
 
 function Orders({ orders, handleStatusChange }) {
   const showOrderInTable = (order) => (
-    <table className="table table-bordered">
+    <table className="table table-bordered table-responsive-sm">
       <thead className="thead-light">
         <tr>
           <th scope="col">Title</th>

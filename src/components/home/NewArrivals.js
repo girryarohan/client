@@ -33,7 +33,6 @@ function NewArrivals() {
 
   return (
     <>
-      {productsCount}
       <div className="container">
         {loading ? (
           <LoadingCard count={3} />
