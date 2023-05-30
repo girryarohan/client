@@ -19,7 +19,7 @@ import {
 } from "@ant-design/icons";
 import Star from "../components/forms/Star";
 
-const { SubMenu, ItemGroup } = Menu;
+const { SubMenu } = Menu;
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -34,9 +34,10 @@ function Shop() {
   const [brands, setBrands] = useState([
     "Apple",
     "Samsung",
-    "Microsoft",
-    "Lenovo",
-    "ASUS",
+    "Canon",
+    "Sony",
+    "DJI",
+    "GoPro",
   ]);
   const [brand, setBrand] = useState("");
   const [colors, setColors] = useState([

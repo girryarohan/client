@@ -94,7 +94,16 @@ function SingleProduct({ product, onStarClick, star }) {
             {description && description}
           </TabPane>
           <TabPane tab="More" key="2">
-            Call us on 9888 777 88 to learn more about this product
+            # Free Delivery, The product is eligible for Free delivery.
+            <br /> # Your transaction is secure We work hard to protect your
+            security and privacy. Our payment security system encrypts your
+            information during transmission. We don’t share your credit card
+            details with third-party sellers, and we don’t sell your information
+            to others <br /># Ecomin directly manages delivery for this product.
+            Order delivery tracking to your doorstep is available. <br /># Top
+            Brand indicates high quality, trusted brands on Ecomin aggregated
+            basis verified ratings, returns/refunds and recent order history at
+            brand level.
           </TabPane>
         </Tabs>
       </div>

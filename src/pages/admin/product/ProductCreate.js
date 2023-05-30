@@ -9,8 +9,8 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 
 const initialState = {
-  title: "macbook",
-  description: "this is best",
+  title: "Apple Iphone 14 Pro Max 256 GB",
+  description: "Your Description Here",
   price: "4566776",
   categories: [],
   category: "",
@@ -19,9 +19,9 @@ const initialState = {
   quantity: "2",
   images: [],
   colors: ["Black", "White", "Blue", "Gold", "Silver"],
-  brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
+  brands: ["Apple", "Samsung", "Canon", "Sony", "DJI", "GoPro"],
   color: "Black",
-  brand: "Microsoft",
+  brand: "Apple",
 };
 function ProductCreate({ history }) {
   const [values, setValues] = useState(initialState);
@@ -50,6 +50,7 @@ function ProductCreate({ history }) {
             history.push("/admin/products");
           },
         });
+        setValues(initialState);
       })
       .catch((err) => {
         console.log(err);

@@ -47,7 +47,7 @@ function NewArrivals() {
           </div>
         )}
       </div>
-      <div className="row">
+      <div className="row" style={{ margin: "0px" }}>
         <nav className="col-md-4 offset-md-4 text-center pt-2 p-3">
           <Pagination
             current={page}

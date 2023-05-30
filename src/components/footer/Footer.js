@@ -108,8 +108,8 @@ function Footer() {
         className="text-center text-dark p-3"
         style={{ backgroundColor: "#E9ECEF" }}
       >
-        <Avatar src="https://pbs.twimg.com/profile_images/1283302395951243264/Rfq-bfLU_400x400.jpg" />
-        &nbsp; Designed and Developed by: © 2021{" "}
+        <Avatar src="https://media.licdn.com/dms/image/C5603AQE5H_6dtqSr4g/profile-displayphoto-shrink_800_800/0/1618608321729?e=2147483647&v=beta&t=lkl_zPkOvqsIMwqjQGUl_B-yGAGxWUKFNGwNMtBs53I" />
+        &nbsp; Designed and Developed by: Rohan Arote © 2023{" "}
         <a className="text-info" href="https://www.rostudio.in">
           rostudio.in
         </a>
