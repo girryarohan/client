@@ -63,7 +63,7 @@ function ProductCard({ product }) {
           <img
             src={images && images.length ? images[0].url : noimage}
             alt={title}
-            style={{ height: "150px", objectFit: "cover" }}
+            style={{ height: "200px", objectFit: "cover" }}
             className="p-1"
           />
         }
@@ -86,6 +86,7 @@ function ProductCard({ product }) {
           title={`${title} - ₹${price}`}
           description={`${description && description.substring(0, 40)}...`}
         />
+        <p className="pt-1 m-0">₹{price}</p>
       </Card>
     </>
   );
